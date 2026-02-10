@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import thumbnail from "../../public/images.jpg";
+import thumbnail from "../assets/images.jpg"
 
 
 

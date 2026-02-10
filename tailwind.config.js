@@ -7,9 +7,10 @@ export default {
   theme: {
     extend: {},
       screens: {
-    mobile: '600px',
-    tablet: '768px',
-    desktop: '1024px',
+        mobile:"320px",
+    tablet: '600px',
+    laptop:'850px',
+    desktop: '1280px',
   }
   },
   plugins: [],

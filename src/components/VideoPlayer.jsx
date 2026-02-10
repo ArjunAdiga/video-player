@@ -1,10 +1,11 @@
 import React from "react";
 import { useRef, useState } from "react";
 import { Pause,Play ,FastForward, Rewind ,VolumeOff,Volume2} from 'lucide-react';
+import RelatedSheet from "./RelatedSheet";
 
 
 
-export default function VideoPlayer({ video }) {
+export default function VideoPlayer({ video , related = [],onSelectRelated}) {
   const playerRef = useRef(null);
   const videoElRef = useRef(null);
 
@@ -51,7 +52,7 @@ export default function VideoPlayer({ video }) {
   }, [muted]);
 
   return (
-    <div className="fixed inset-0 bg-black pb-10 sm:pb-14">
+  <div className="fixed inset-0 bg-black pb-[env(safe-area-inset-bottom)]">
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative w-full max-w-7xl aspect-video">
           <video
@@ -92,8 +93,8 @@ export default function VideoPlayer({ video }) {
             }}
           />
 
-          <div className="absolute inset-x-0 bottom-8 sm:bottom-8 z-30">
-            <div className="pointer-events-auto mx-3 sm:mx-4 rounded-lg bg-black/80 backdrop-blur p-3 sm:p-4 text-white flex items-center gap-3 sm:gap-4 shadow-lg">
+          <div className="absolute inset-x-0 bottom-28 tablet:bottom-28 mobile:bottom-8 z-[40]">
+            <div className="pointer-events-auto mx-3 sm:mx-4 rounded-lg bg-black/85 backdrop-blur p-2 sm:p-3 text-white flex items-center gap-2 sm:gap-3 shadow-lg">
               <button
                 aria-label="Skip back 10 seconds"
                 onClick={() => skip(-10)}
@@ -119,7 +120,7 @@ export default function VideoPlayer({ video }) {
                 <FastForward size={16} />
               </button>
               <div className="flex-1" />
-              <div className="flex items-center flex-col tablet:flex-row">
+              <div className="flex items-center flex-col tablet:flex-row w-full">
                 <input
                   type="range"
                   min={0}
@@ -127,10 +128,10 @@ export default function VideoPlayer({ video }) {
                   step="0.01"
                   value={progress}
                   onChange={(e) => handleSeek(Number(e.target.value))}
-                  className="w-40 sm:w-[40vw] md:w-[50vw] accent-white/90"
+                  className="w-full sm:w-[55vw] md:w-[50vw] accent-white/90"
                   aria-label="Seek"
                 />
-                <div className="text-[11px] sm:text-sm ml-2 whitespace-nowrap drop-shadow">
+                <div className="text-[11px] sm:text-sm ml-2 whitespace-nowrap drop-shadow min-w-[80px] text-right">
                   {Math.floor(progress * duration)}s / {Math.floor(duration)}s
                 </div>
               </div>
@@ -138,6 +139,7 @@ export default function VideoPlayer({ video }) {
           </div>
         </div>
       </div>
+       <RelatedSheet items={related} onSelect={onSelectRelated} />
     </div>
   );
 }
